@@ -1,14 +1,17 @@
 import { LitElement, html, css } from 'lit';
 
-export class imageGallery extends LitElement {
+export class mediaImage extends LitElement {
 
   static get tag() {
-    return 'image-gallery';
+    return 'media-image';
   }
 
   constructor() {
-    super();
-    this.title = "imageGallery";    
+    super(); 
+    this.count = 0;
+    this.image = "";
+    this.description = "";
+    this.caption = "";
   }
 
   static get styles() {
@@ -18,6 +21,7 @@ export class imageGallery extends LitElement {
         --background-color: #6b6a6a;
         display: inline-flex;
         background: var(--background-color);
+        width: 100%;
       }
 
       span {
@@ -34,11 +38,12 @@ export class imageGallery extends LitElement {
       }
 
       #card-container {
-        display: inline-block;
+        display: flex;
         margin: 0 auto;
         background-color: var(--background-color);
         width: 100%;
-        text-align: center;
+        align-items: center;
+        justify-content: center;
       }
 
       .image-container {
@@ -47,6 +52,7 @@ export class imageGallery extends LitElement {
         justify-content: space-around;
         padding: 16px;
         text-align: center;
+        justify-content: flex-start;
       }
 
       .left-arrow {
@@ -57,27 +63,50 @@ export class imageGallery extends LitElement {
       .image-container:hover {
         background-color: grey;
       }
-    `;
+
+      .description {
+        display: block;
+        font-size: 16px;
+        text-align: center;
+      }
+
+      .caption {
+        text-align: center;
+      }
+     `;
   }
 
   render() {
+    console.log("Image URL:", this.image);
     return html`
       <div id="card-container">
         <div class="image-container">
-          <img src="https://pbs.twimg.com/media/DHYQGS9V0AENXTL?format=jpg&name=4096x4096" alt="Image 1" width="200" height="200">
-          <div class="left-arrow">
+          <img src="${this.image}" width=300px>       
+          <div class="caption">
+          <h1>${this.caption}</h1>
           </div>
+        </div>
+
+        <div class="description">
+            ${this.description}
         </div>
       </div>
     ` 
   }
 
+  ImageContent() {
+    //js for array of images
+  }
+
   static get properties() {
     return {
       // this is a String. Array, Object, Number, Boolean are other valid values here
-      title: { type: String },
+      image: { type: String, Reflect: true },
+      caption: { type: String, Reflect: true }, 
+      description: { type: String, Reflect: true }, 
+      count: { type: Number, Reflect: true }
     };
   }
 }
 
-globalThis.customElements.define(imageGallery.tag, imageGallery);
+globalThis.customElements.define(mediaImage.tag, mediaImage);

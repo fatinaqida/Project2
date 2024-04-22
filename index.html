@@ -20,27 +20,63 @@
       margin: 16px;
     }
   </style>
-  <title>image-gallery / polaris-chip / my-card</title>
+  <title>media-image / polaris-chip / my-card</title>
 </head>
 
 <body>
   <h2>Image Gallery</h2>
-  <image-gallery></image-gallery>
+  <media-image
+    count="1"
+    image="https://i.pinimg.com/originals/ea/56/e1/ea56e152f8ab35ce7f42e300ad1cbc39.gif"
+    caption="Kuromi"
+    description="this is description about Kuromi"
+  ></media-image>
 
-  <h1>polaris-chip</h1>
-  <!-- this is going to do whatever the tag's defaults are -->
+  <media-image
+    count="2"
+    image="https://media.tenor.com/i-GFhbxmVNsAAAAi/sanrio-emoji.gif"
+    caption="Pompompurin"
+    description="this is description about Pompompurin"
+  ></media-image>
+
+  <media-image
+    count="3"
+    image="https://i.pinimg.com/originals/72/d9/bc/72d9bcc1e70741cd734e267fb96d3d19.gif"
+    caption="Cinnamoroll"
+    description="this is description about Cinnamoroll"
+  ></media-image>
+
+  <media-image
+    count="4"
+    image="https://i.pinimg.com/originals/43/dd/c2/43ddc2fc98eeddfeeb87b1737dd1510a.gif"
+    caption="My Melody"
+    description="this is description about My Melody"
+  ></media-image>
+
+  <media-image
+    count="4"
+    image="https://i.pinimg.com/originals/d4/e9/20/d4e920e6b0da6b5fb8e947e458e876cc.gif"
+    caption="Hello Kitty"
+    description="this is description about Hello Kitty"
+  ></media-image>
+
+
+  <!-- <h1>polaris-chip</h1> -->
+  <!-- this is going to do whatever the tag's defaults are 
   <polaris-chip title="News of Record" link="https://psu.edu/"></polaris-chip>
   <polaris-chip title="Faculty and Staff"></polaris-chip>
   <polaris-chip title="Sports are the only thing that matter"></polaris-chip>
-  <polaris-chip title="Grants and donations"></polaris-chip>
+  <polaris-chip title="Grants and donations"></polaris-chip>-->
 
+  <!--
   <h1>my-card</h1>
   <my-card></my-card>
+  -->
 
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
-  <script type="module" src="./src/image-gallery.js"></script>
+  <script type="module" src="./src/media-image.js"></script>
 </body>
 
 </html>
