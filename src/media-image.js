@@ -82,29 +82,6 @@ export class mediaImage extends LitElement {
   render() {
     console.log("Image URL:", this.image);
     return html`
-  <!--
-      <div id="card-container">
-        ${this.imageData.map(item => html`
-        <div class="image-container">
-          <img src="${item.image}" width=100px @click="${() => this.openModal(item.image)}">       
-          <div class="caption">
-          <h1>${item.caption}</h1>
-          </div>
-        </div>`)}
-
-        
-        <div class="modal" id="myModal">
-          <span class="close" @click="${this.closeModal}">&times;</span>
-          <img class="modal-content" id="img01" src="${this.image}"> 
-        </div>
-      
-       
-
-        <div class="description">
-            ${this.description}
-        </div>
-      </div>
-  -->
       <div id="card-container">
         <div class="image-container">
           <div class="what">
@@ -132,34 +109,13 @@ export class mediaImage extends LitElement {
     document.body.querySelector("img-gallery").count = this.count;
   }
 
-  createOpenGalleryEvent(){
-    this.dispatchEvent(new CustomEvent("gallery-open", {bubbles: true, composed: true, cancelable: true}));
-  }
-
-  
-  openModal(image) {
-    const modal = document.querySelector(".modal");
-    const modalImg = document.querySelector("#img01");
-    modalImg.src = image;
-    this.visible = true;
-  }
-
-  closeModal() {
-    const modal = document.querySelector(".modal");
-    this.visible = false;
-  }
-
-  openDialog(e){
-    const evt = new CustomEvent("media-clicked", {
-      bubbles: true,
-      composed: true,
-      cancelable: true,
-      detail: {
-      opened: true,
-      invokedBy: this.invokedBy,
-      },
-      });
-    this.dispatchEvent(evt);
+  createOpenGalleryEvent(imageUrl){
+    this.dispatchEvent(new CustomEvent("gallery-open", {
+      bubbles: true, 
+      composed: true, 
+      cancelable: true, 
+      detail: { index: this.getAttribute('count'), imageUrl: this.getAttribute('image')}
+    }));
   }
 
   static get properties() {
@@ -169,7 +125,7 @@ export class mediaImage extends LitElement {
       caption: { type: String, Reflect: true }, 
       description: { type: String, Reflect: true }, 
       imageData: { type: Array, Reflect: true },
-      visible: { type: Boolean, Reflect: true }, 
+      //visible: { type: Boolean, Reflect: true }, 
       count: { type: Number, Reflect: true }
     };
   }

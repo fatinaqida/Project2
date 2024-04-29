@@ -10,10 +10,11 @@ export class ImgGallery extends LitElement {
   // constructor establishes defaults for the class
   constructor() {
     super();
-    this.title = "img-gallery";
     this.slides = [];
     this.index = 0;
     this.open = false;
+    this.currentImage = "";
+    this.currentImageIndex = 0;
   }
 
 
@@ -51,7 +52,7 @@ export class ImgGallery extends LitElement {
     }
     return html` <div class="dialogBox">
       <div class="container">
-        <button class="exitButton" @click=${this.closeButton}>x</button>
+        <button class="exitButton" @click=${this.closeButton}>&times;</button>
         <div class="displayContainer">
             <button class="leftArrow" @click="${this.previousSlide}"> < </button>
             ${this.displaySlide()}
@@ -62,14 +63,14 @@ export class ImgGallery extends LitElement {
   }
 
   nextSlide() {
-    if (this.index < this.slides.length - 1) {
-      this.index++;
+    if (this.currentImageIndex <= this.slides.length - 1) {
+      this.currentImageIndex++;
       this.requestUpdate();
     }
   }
   previousSlide() {
-    if (this.index > 0) {
-      this.index--;
+    if (this.currentImageIndex > 0) {
+      this.currentImageIndex--;
       this.requestUpdate();
     }
   }
@@ -83,6 +84,14 @@ export class ImgGallery extends LitElement {
     window.addEventListener("gallery-open", (e) => {
       this.open = true;
       console.log("open dialog");
+
+        // Get the image URL and index from tmedia-image
+        const imageUrl = e.detail.imageUrl;
+        const index = e.detail.index;
+
+        // Set the currentImage and currentImageIndex according to the received image URL and its index
+        this.currentImage = imageUrl;
+        this.currentImageIndex = index;
     });
     console.log("added event listener");
   }
@@ -97,10 +106,10 @@ export class ImgGallery extends LitElement {
   displaySlide() {
     return html`
       <div>
-        <img class="image" src="${this.slides[this.index].image}" @click=${this.handleImageClick} />
-        <p>Slide ${this.index + 1} / ${this.slides.length}</p>
-        <h1 class="caption">${this.slides[this.index].caption}</h1>
-        <p class="description">${this.slides[this.index].description}</p>
+        <img class="image" src="${this.slides[this.currentImageIndex-1].image}" />
+        <p>Slide ${this.currentImageIndex} / ${this.slides.length}</p>
+        <h1 class="caption">${this.slides[this.currentImageIndex-1].caption}</h1>
+        <p class="description">${this.slides[this.currentImageIndex-1].description}</p>
       </div>
     `;
   }
@@ -108,8 +117,11 @@ export class ImgGallery extends LitElement {
   static get properties() {
     return {
       ...super.properties,
-      title: { type: String },
-      open: { type: Boolean, reflect: true}
+      open: { type: Boolean, reflect: true}, 
+      index: { type: Number, reflect: true}, 
+      slides: { type: Array, reflect: true}, 
+      currentImage: { type: String, reflect: true}, 
+      currentImageIndex: { type: Number, reflect: true}
     };
   }
 }
