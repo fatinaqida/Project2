@@ -18,9 +18,11 @@ export class mediaImage extends LitElement {
 
   static get styles() {
     return css`
-      :host {
+      :root, :host {
         /* Always make sure that your element has a default way of being displayed */
-        --background-color: #6b6a6a;
+        --media-image-primary-color-1: #6b6a6a;
+        --media-image-primary-color-2: #a1eafb;
+        --secondary-color: #f7f7f7;
         --font-family-1: georgia, serif;
         --font-family-2: courier, serif;
         display: inline-flex;
@@ -44,7 +46,7 @@ export class mediaImage extends LitElement {
       #card-container {
         display: flex;
         margin: 0 auto;
-        background-color: var(--background-color);
+        background-color: var(--media-image-primary-color-1);
         width: 100%;
         align-items: center;
         justify-content: center;
@@ -73,6 +75,8 @@ export class mediaImage extends LitElement {
         font-size: 16px;
         text-align: center;
         font-family: var(--font-family-1);
+        max-width: 30%;
+        line-height: 1.5;
       }
 
       .caption {

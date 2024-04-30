@@ -27,14 +27,27 @@ export class ImgGallery extends LitElement {
         --container-height: 75vh;
         --font-family-1: georgia, serif;  
         --font-family-2: courier, serif;
+        --img-gallery-primary-color-1: #a1eafb;
+        --img-gallery-primary-color-2: #FFE7E7;
         display: inline-flex;
+    }
+
+    :host([open]) {
+      display: flex;
+      z-index: 100000;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5); 
     }
 
     .container {
       width: var(--container-width);
       height: var(--container-height);
       display: flex;
-      background-color: #a1eafb;
+      background-color: var(--img-gallery-primary-color-1);
       z-index: 100000;
       position: absolute;
       top: 50%;
@@ -44,6 +57,13 @@ export class ImgGallery extends LitElement {
       border: 3px solid #000000;
       padding: 20px;
       border-radius: 10px;
+      top: 50%;
+      left: 50%;
+      transform: translate(
+        -50%,
+        -50%
+      );
+      overflow: hidden;
     }
 
     .exitButton { 
@@ -67,7 +87,7 @@ export class ImgGallery extends LitElement {
 
     .leftArrow {
       align-items: center;
-      background-color: #FFE7E7;
+      background-color: var(--img-gallery-primary-color-2);
       background-position: 0 0;
       border: 1px solid #FEE0E0;
       border-radius: 11px;
@@ -156,22 +176,27 @@ export class ImgGallery extends LitElement {
     }
 
     .image {
+      display: block;
       position: relative;
       margin: auto;
-      width: 300px;
-      height: 300px;
+      width: 230px;
+      height: 230px;
+      text-align: center;
     }
 
     .caption {
       position: relative;
       text-align: center;
       font-family: var(--font-family-2);
+      font-size: 36px;
     }
 
     .description {
       position: relative;
       text-align: center;
       font-family: var(--font-family-1);
+      font-size: 16px;
+      line-height: 1.5;
     }
 
     .slideNumber {
@@ -194,8 +219,8 @@ export class ImgGallery extends LitElement {
       return html``;
     }
 
-    const isFirstSlide = this.currentImageIndex === 1;
-    const isLastSlide = this.currentImageIndex === this.slides.length;
+    const isFirstSlide = this.currentImageIndex == 1;
+    const isLastSlide = this.currentImageIndex == this.slides.length;
 
     console.log('Is first slide:', isFirstSlide);
     console.log('Is last slide:', isLastSlide);
@@ -268,17 +293,13 @@ export class ImgGallery extends LitElement {
   }
 
   toDisableScroll() {
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollLeft = document.documentElement.scrollLeft;
-
-    this._scrollPosition = { top: scrollTop, left: scrollLeft };
-
     document.body.style.overflow = "hidden";//to disable scroll
   }
 
   toEnableScroll() {
     document.body.style.overflow = "";
-    
+
+    //to enable scrolling after close button is clicked
     if (this._scrollPosition) {
       window.scrollTo(this._scrollPosition.left, this._scrollPosition.top);
     }
