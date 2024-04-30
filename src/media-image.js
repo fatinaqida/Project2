@@ -59,6 +59,8 @@ export class mediaImage extends LitElement {
         padding: 16px;
         text-align: center;
         justify-content: flex-start;
+        width: 300px;
+        height: 300px;
       }
 
       .left-arrow {
@@ -80,8 +82,10 @@ export class mediaImage extends LitElement {
       }
 
       .caption {
+        display: block;
         text-align: center;
         font-family: var(--font-family-2);
+        font-size: 13px;
       }
      `;
   }
@@ -93,7 +97,7 @@ export class mediaImage extends LitElement {
       <div id="card-container">
         <div class="image-container">
           <div class="what">
-            <img src="${this.image}" width="300px" @click="${this.contentClicked}">
+            <img src="${this.image}" width="250px" height="250px" @click="${this.contentClicked}">
           </div>
           <div class="caption">
             <h1>${this.caption}</h1>

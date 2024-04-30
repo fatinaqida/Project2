@@ -154,7 +154,7 @@ export class ImgGallery extends LitElement {
       text-decoration: none;
       text-shadow: none;
       text-underline-offset: 1px;
-      transition: border .2s ease-in-out,box-shadow .2s ease-in-out;
+      transition: border .2s ease-in-out, box-shadow .2s ease-in-out;
       user-select: none;
       -webkit-user-select: none;
       touch-action: manipulation;
