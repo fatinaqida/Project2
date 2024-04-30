@@ -21,6 +21,8 @@ export class mediaImage extends LitElement {
       :host {
         /* Always make sure that your element has a default way of being displayed */
         --background-color: #6b6a6a;
+        --font-family-1: georgia, serif;
+        --font-family-2: courier, serif;
         display: inline-flex;
         background: var(--background-color);
         width: 100%;
@@ -70,10 +72,12 @@ export class mediaImage extends LitElement {
         display: block;
         font-size: 16px;
         text-align: center;
+        font-family: var(--font-family-1);
       }
 
       .caption {
         text-align: center;
+        font-family: var(--font-family-2);
       }
      `;
   }
