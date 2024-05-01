@@ -1,10 +1,11 @@
 import { LitElement, html, css } from 'lit';
+import { DDD } from "@lrnwebcomponents/d-d-d/d-d-d.js";
 import "./media-image.js";
 
-export class ImgGallery extends LitElement {
+export class playList extends LitElement {
 
   static get tag() {
-    return 'img-gallery';
+    return 'play-list';
   }
 
   // constructor establishes defaults for the class
@@ -27,8 +28,11 @@ export class ImgGallery extends LitElement {
         --container-height: 75vh;
         --font-family-1: georgia, serif;  
         --font-family-2: courier, serif;
-        --img-gallery-primary-color-1: #a1eafb;
-        --img-gallery-primary-color-2: #FFE7E7;
+        --play-list-primary-color-1: var(--ddd-theme-default-linkLight);
+        --play-list-primary-color-2: var(--ddd-theme-default-errorLight);
+        --play-list-secondary-color-1: var(--ddd-theme-default-alertImmediate);
+        --play-list-secondary-color-2: var(--ddd-theme-default-info);
+        --play-list-secondary-color-3: var(--ddd-theme-default-roarMaxlight);
         display: inline-flex;
     }
 
@@ -47,7 +51,7 @@ export class ImgGallery extends LitElement {
       width: var(--container-width);
       height: var(--container-height);
       display: flex;
-      background-color: var(--img-gallery-primary-color-1);
+      background-color: var(--play-list-primary-color-1);
       z-index: 100000;
       position: absolute;
       top: 50%;
@@ -76,18 +80,18 @@ export class ImgGallery extends LitElement {
       cursor: pointer;
       box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
       padding: 8px 8px 8px 8px;
-      background-color: #ffcef3;
+      background-color: var(--play-list-secondary-color-1);
       border-radius: 10px;
     }
 
     .exitButton:hover {
       box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-      border: 1px solid #ffcef3;
+      border: 1px solid var(--play-list-secondary-color-2);
     }
 
     .leftArrow {
       align-items: center;
-      background-color: var(--img-gallery-primary-color-2);
+      background-color: var(--play-list-primary-color-2);
       background-position: 0 0;
       border: 1px solid #FEE0E0;
       border-radius: 11px;
@@ -137,7 +141,7 @@ export class ImgGallery extends LitElement {
 
     .rightArrow {
       align-items: center;
-      background-color: #FFE7E7;
+      background-color: var(--play-list-secondary-color-3);
       background-position: 0 0;
       border: 1px solid #FEE0E0;
       border-radius: 11px;
@@ -219,31 +223,36 @@ export class ImgGallery extends LitElement {
       return html``;
     }
 
+    //for disabled function for left and right arrow
     const isFirstSlide = this.currentImageIndex == 1;
     const isLastSlide = this.currentImageIndex == this.slides.length;
-
-    console.log('Is first slide:', isFirstSlide);
-    console.log('Is last slide:', isLastSlide);
-    console.log('index', this.currentImageIndex);
 
     return html` <div class="dialogBox">
       <div class="container">
         <button class="exitButton" @click=${this.closeButton}>&times;</button>
         <div class="displayContainer">
+            <!-- disabled left button if it is the first image -->
             <button class="leftArrow" @click="${this.previousSlide}" ?disabled="${isFirstSlide}"> < </button>
+
+            <!-- to display the image -->
             ${this.displaySlide()}
+
+            <!-- disabled right button if it is the last image -->
             <button class="rightArrow" @click="${this.nextSlide}" ?disabled="${isLastSlide}"> > </button>
         </div>
       </div>
     </div>`;
   }
 
+  // function to go to the next slide
   nextSlide() {
     if (this.currentImageIndex <= this.slides.length - 1) {
       this.currentImageIndex++;
       this.requestUpdate();
     }
   }
+
+  // function to go to the previous slide
   previousSlide() {
     if (this.currentImageIndex > 0) {
       this.currentImageIndex--;
@@ -256,6 +265,7 @@ export class ImgGallery extends LitElement {
     this.populateSlide();
   }
 
+  // function to listen to the gallery-open event
   addOpenImageEventListener() {
     window.addEventListener("gallery-open", (e) => {
       this.open = true;
@@ -274,6 +284,7 @@ export class ImgGallery extends LitElement {
     
   }
 
+  // function to populate the slides array with the images
   populateSlide() {
     document.body.querySelectorAll("media-image").forEach((image) => {
         image.count = this.slides.length;
@@ -281,6 +292,7 @@ export class ImgGallery extends LitElement {
     });
   }
 
+  // function to display the image according to the index
   displaySlide() {
     return html`
       <div>
@@ -308,14 +320,13 @@ export class ImgGallery extends LitElement {
   static get properties() {
     return {
       ...super.properties,
-      open: { type: Boolean, reflect: true}, 
-      index: { type: Number, reflect: true}, 
-      slides: { type: Array, reflect: true}, 
-      currentImage: { type: String, reflect: true}, 
-      currentImageIndex: { type: Number, reflect: true}
+      open: { type: Boolean, reflect: true }, 
+      index: { type: Number, reflect: true }, 
+      slides: { type: Array, reflect: true }, 
+      currentImage: { type: String, reflect: true }, 
+      currentImageIndex: { type: Number, reflect: true }
     };
   }
 }
 
-
-globalThis.customElements.define(ImgGallery.tag, ImgGallery);
+globalThis.customElements.define(playList.tag, playList);
